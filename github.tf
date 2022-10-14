@@ -1,5 +1,5 @@
 resource "github_repository" "demo" {
-  name        = "demo-terraform-cloud-agents-aci-virtual-machine"
+  name        = "terraform-demo-cloud-agents-aci-vm"
   description = "Demo repo for provisioning Azure VMs using Terraform Cloud Agent running on ACI"
 
   visibility         = "public"

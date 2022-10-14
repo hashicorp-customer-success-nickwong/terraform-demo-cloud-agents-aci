@@ -22,8 +22,8 @@ variable "tfc_org" {
 }
 
 variable "github_template_repo" {
-  type = string
-  default = "terraform-ci-cd-template"
+  type    = string
+  default = "terraform-demo-cloud-agents-aci-vm-template"
 }
 
 variable "github_token" {
@@ -31,6 +31,6 @@ variable "github_token" {
 }
 
 variable "github_organization" {
-  type = string
+  type    = string
   default = "hashicorp-customer-success-nickwong"
 }

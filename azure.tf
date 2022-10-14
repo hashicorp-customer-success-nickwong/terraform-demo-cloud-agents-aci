@@ -20,9 +20,15 @@ resource "azurerm_container_group" "tfc-agent" {
   ip_address_type     = "None"
   os_type             = "Linux"
 
+  image_registry_credential {
+    server   = data.tfe_outputs.demo.values.login_server
+    username = data.tfe_outputs.demo.values.admin_username
+    password = data.tfe_outputs.demo.values.admin_password
+  }
+
   container {
     name   = "tfc-agent"
-    image  = "hashicorp/tfc-agent:latest"
+    image  = "${data.tfe_outputs.demo.values.login_server}/hashicorp-customer-success-nickwong/terraform-demo-cloud-agents-aci-docker-file/terraform-cloud-agent:latest"
     cpu    = "1.0"
     memory = "2.0"
 
