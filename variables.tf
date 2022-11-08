@@ -34,3 +34,8 @@ variable "github_organization" {
   type    = string
   default = "hashicorp-customer-success-nickwong"
 }
+
+variable "container_count" {
+  type    = number
+  default = 2
+}

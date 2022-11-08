@@ -26,18 +26,21 @@ resource "azurerm_container_group" "tfc-agent" {
     password = data.tfe_outputs.demo.values.admin_password
   }
 
-  container {
-    name   = "tfc-agent"
-    image  = "${data.tfe_outputs.demo.values.login_server}/hashicorp-customer-success-nickwong/terraform-demo-cloud-agents-aci-docker-file/terraform-cloud-agent:latest"
-    cpu    = "1.0"
-    memory = "2.0"
+  dynamic "container" {
+    for_each = range(1, var.container_count + 1)
+    content {
+      name   = "tfc-agent-${format("%02d", container.value)}"
+      image  = "${data.tfe_outputs.demo.values.login_server}/hashicorp-customer-success-nickwong/terraform-demo-cloud-agents-aci-docker-file/terraform-cloud-agent:latest"
+      cpu    = "1.0"
+      memory = "2.0"
 
-    environment_variables = {
-      TFC_AGENT_SINGLE = "True"
-    }
+      environment_variables = {
+        TFC_AGENT_NAME = "tfc-agent-${format("%02d", container.value)}"
+      }
 
-    secure_environment_variables = {
-      TFC_AGENT_TOKEN = tfe_agent_token.demo.token
+      secure_environment_variables = {
+        TFC_AGENT_TOKEN = tfe_agent_token.demo.token
+      }
     }
   }
 
